@@ -49,9 +49,31 @@ const mongoose = require("mongoose");
  * - This lets us use .populate('author') to get the full user data
  */
 
-// TODO: Define the storySchema
 const storySchema = new mongoose.Schema(
   {
+ backend-dev
+    // title: String, required, trimmed
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    // content: String, required
+    content: {
+      type: String,
+      required: true,
+    },
+
+    // author: Reference to User model (ObjectId)
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    // likes: Array of User ObjectIds
+
     title: {
       type: String,
       required: [true, "Title is required"],
@@ -81,6 +103,7 @@ const storySchema = new mongoose.Schema(
     // - This is an array, so use [ ] around the object
     // - type: mongoose.Schema.Types.ObjectId
     // - ref: 'User'
+
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
