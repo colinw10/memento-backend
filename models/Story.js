@@ -51,7 +51,6 @@ const mongoose = require("mongoose");
 
 const storySchema = new mongoose.Schema(
   {
- backend-dev
     // title: String, required, trimmed
     title: {
       type: String,
