@@ -42,6 +42,18 @@ npm run dev
 npm start
 ```
 
+Server runs at `http://localhost:3000`
+
+## Dev User Credentials
+
+A dev user is already seeded in the shared database:
+
+| Email | Password |
+|-------|----------|
+| `dev@memento.com` | `devpass123` |
+
+Use this to login and test the app without creating a new account.
+
 ## API Endpoints
 
 ### Auth

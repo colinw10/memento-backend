@@ -100,8 +100,6 @@ router.get("/verify", protect, async (req, res) => {
       email: req.user.email,
     },
   });
-
-  res.json({ message: "TODO: Implement verify route" });
 });
 
 module.exports = router;
