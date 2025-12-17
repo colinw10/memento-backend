@@ -44,19 +44,7 @@ app.use(express.json());
 // ===========================================
 
 // Connect to MongoDB (COLIN implements the connectDB function)
-// connectDB();
-mongoose.connection.on("connected", () => {
-  console.log("MongoDB connected successfully");
-});
-mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .catch((err) => {
-    console.error("MongoDB connection error:", err);
-    process.exit(1);
-  });
+connectDB();
 
 // ===========================================
 // MOUNT ROUTES
