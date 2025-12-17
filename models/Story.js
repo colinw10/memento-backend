@@ -51,58 +51,20 @@ const mongoose = require("mongoose");
 
 const storySchema = new mongoose.Schema(
   {
-    // title: String, required, trimmed
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-
-    // content: String, required
-    content: {
-      type: String,
-      required: true,
-    },
-
-    // author: Reference to User model (ObjectId)
-    author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-
-    // likes: Array of User ObjectIds
-
     title: {
       type: String,
       required: [true, "Title is required"],
       trim: true,
     },
-    // TODO: Add title field
-    // - type: String
-    // - required: true
-    // - trim: true
-    // TODO: Add content field
-    // - type: String
-    // - required: true
     content: {
       type: String,
       required: [true, "Content is required"],
     },
-    // TODO: Add author field (reference to User)
-    // - type: mongoose.Schema.Types.ObjectId
-    // - ref: 'User'
-    // - required: true
     author: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: [true, "Author is required"],
     },
-    // TODO: Add likes field (array of User references)
-    // - This is an array, so use [ ] around the object
-    // - type: mongoose.Schema.Types.ObjectId
-    // - ref: 'User'
-
     likes: [
       {
         type: mongoose.Schema.Types.ObjectId,
