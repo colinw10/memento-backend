@@ -36,23 +36,25 @@ const mongoose = require("mongoose");
  * - This lets us query "all comments for story X" or "all comments by user Y"
  */
 
-// TODO: Define the commentSchema
-const commentSchema = new mongoose.Schema(
-  {
-    // TODO: Add content field
-    // - type: String
-    // - required: true
-    // TODO: Add author field (reference to User)
-    // - type: mongoose.Schema.Types.ObjectId
-    // - ref: 'User'
-    // - required: true
-    // TODO: Add story field (reference to Story)
-    // - type: mongoose.Schema.Types.ObjectId
-    // - ref: 'Story'
-    // - required: true
+const commentSchema = new mongoose.Schema({
+  content: {
+    type: String,
+    required: true,
   },
-  { timestamps: true }
-);
+
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+
+  story: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Story",
+    required: true,
+  },
+}, { timestamps: true });
+
 
 // Create and export the model
 const Comment = mongoose.model("Comment", commentSchema);
