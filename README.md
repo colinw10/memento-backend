@@ -1,46 +1,47 @@
 # Memento Backend
 
-Express.js REST API for the Memento microblog application.
+Memento is a place to share the moments that matter - the stories you want to hold onto, the memories worth telling.
+It's a microblog where you write, share, and connect through personal stories. Simple, clean, human.
+
+## Project name
+
+Memento
+
+## Table of Contents
+
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [API Endpoints](#api-endpoints)
+  - [Auth](#auth)
+  - [Stories](#stories)
+  - [Comments](#comments)
+- [Project Structure](#project-structure)
+- [Team Assignments](#team-assignments)
+- [Testing with Postman](#testing-with-postman)
 
 ## Tech Stack
 
 - **Express.js** - Web framework
+- **Node.js** - Runtime enviornament
 - **MongoDB** - Database
 - **Mongoose** - MongoDB ODM
 - **JWT** - Authentication tokens
 - **bcrypt** - Password hashing
+- **cors, dotenv**
 
 ## Getting Started
 
-### 1. Install Dependencies
+## Installation
 
-```bash
-npm install
-```
+1. Clone the repo  
+   `git clone https://github.com/your-org/memento-backend.git && cd memento-backend`
+2. Install dependencies  
+   `npm install`
+3. Set up environment variables (create a `.env` file)
+4. Run the server locally
 
-### 2. Environment Setup
-
-Copy `.env.example` to `.env` and fill in your values:
-
-```bash
-cp .env.example .env
-```
-
-Required variables:
-
-- `PORT` - Server port (default 3000)
-- `MONGODB_URI` - Your MongoDB connection string
-- `JWT_SECRET` - Secret key for JWT tokens
-
-### 3. Run the Server
-
-```bash
-# Development (auto-restart on changes)
-npm run dev
-
-# Production
-npm start
-```
+- Development: `npm run dev`
+- Production: `npm start`
 
 ## API Endpoints
 
@@ -73,26 +74,45 @@ npm start
 
 ## Project Structure
 
-```
-├── server.js          # Entry point
-├── config/
-│   └── db.js          # Database connection
-├── models/
-│   ├── User.js        # User schema
-│   ├── Story.js       # Story schema
-│   └── Comment.js     # Comment schema
-├── routes/
-│   ├── auth.js        # Auth endpoints
-│   ├── stories.js     # Story endpoints
-│   └── comments.js    # Comment endpoints
-└── middleware/
-    └── auth.js        # JWT verification
+```text
+.
+├── config
+│   └── db.js
+├── docs
+│   ├── team-plan
+│   │   ├── colin.md
+│   │   ├── crystal.md
+│   │   ├── natalia.md
+│   │   ├── pablo.md
+│   │   ├── seed.md
+│   │   └── tito.md
+│   └── TEAM-README.md
+├── middleware
+│   └── auth.js
+├── models
+│   ├── Comment.js
+│   ├── index.js
+│   ├── Story.js
+│   └── User.js
+├── routes
+│   ├── auth.js
+│   ├── comments.js
+│   └── stories.js
+├── scripts
+│   └── seed.js
+├── package-lock.json
+├── package.json
+├── README.md
+├── server.js
+└── tree.txt
+
 ```
 
 ## Team Assignments
 
 See `docs/team-plan/` for detailed task breakdowns:
 
+- **Pablo** - Backend Architecture and team asistance
 - **Natalia** - Auth routes + Story CRUD
 - **Colin** - User model + DB setup + Like functionality
 - **Tito** - Comment routes + Story/Comment models
@@ -123,3 +143,11 @@ curl -X POST http://localhost:3000/api/stories \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{"title":"My Story","content":"Story content here"}'
 ```
+
+## Developed By
+
+- Pablo Cordero
+- Colin Weir
+- Natalia Pricop
+- Cristal Ruiz
+- Tito Del Valle
