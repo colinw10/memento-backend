@@ -10,7 +10,7 @@ const Story = require("../models/Story");
 const { protect } = require("../middleware/auth");
 
 /**
- * @route   GET /api/stories
+ * @route   GET 
  * @desc    Get all stories
  * @access  Private
  */
