@@ -39,15 +39,15 @@ const { protect } = require("../middleware/auth");
  * 5. Return array of comments
  */
 router.get("/stories/:storyId/comments", async (req, res) => {
-  // TODO: Implement get comments for story
+  try {
+    const comments = await Comment.find({ story: req.params.storyId })
+      .populate("author", "username")
+      .sort({ createdAt: -1 });
 
-  // const comments = await Comment.find({ story: req.params.storyId })
-  //   .populate('author', 'username')
-  //   .sort({ createdAt: -1 });
-  //
-  // res.json(comments);
-
-  res.json({ message: "TODO: Implement get comments for story" });
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 /**
@@ -66,25 +66,25 @@ router.get("/stories/:storyId/comments", async (req, res) => {
  * 5. Return created comment with 201 status
  */
 router.post("/stories/:storyId/comments", protect, async (req, res) => {
-  // TODO: Implement create comment
+  try {
+    // First verify the story exists
+    const story = await Story.findById(req.params.storyId);
+    if (!story) {
+      return res.status(404).json({ message: "Story not found" });
+    }
 
-  // // First verify the story exists
-  // const story = await Story.findById(req.params.storyId);
-  // if (!story) {
-  //   return res.status(404).json({ message: 'Story not found' });
-  // }
-  //
-  // const comment = await Comment.create({
-  //   content: req.body.content,
-  //   author: req.user._id,
-  //   story: req.params.storyId
-  // });
-  //
-  // await comment.populate('author', 'username');
-  //
-  // res.status(201).json(comment);
+    const comment = await Comment.create({
+      content: req.body.content,
+      author: req.user._id,
+      story: req.params.storyId,
+    });
 
-  res.json({ message: "TODO: Implement create comment" });
+    await comment.populate("author", "username");
+
+    res.status(201).json(comment);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 /**
@@ -103,24 +103,26 @@ router.post("/stories/:storyId/comments", protect, async (req, res) => {
  * because we just need the comment ID to delete it
  */
 router.delete("/comments/:id", protect, async (req, res) => {
-  // TODO: Implement delete comment
+  try {
+    const comment = await Comment.findById(req.params.id);
 
-  // const comment = await Comment.findById(req.params.id);
-  //
-  // if (!comment) {
-  //   return res.status(404).json({ message: 'Comment not found' });
-  // }
-  //
-  // // Check ownership
-  // if (comment.author.toString() !== req.user._id.toString()) {
-  //   return res.status(403).json({ message: 'Not authorized to delete this comment' });
-  // }
-  //
-  // await comment.deleteOne();
-  //
-  // res.json({ message: 'Comment deleted' });
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
 
-  res.json({ message: "TODO: Implement delete comment" });
+    // Check ownership
+    if (comment.author.toString() !== req.user._id.toString()) {
+      return res
+        .status(403)
+        .json({ message: "Not authorized to delete this comment" });
+    }
+
+    await comment.deleteOne();
+
+    res.json({ message: "Comment deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
