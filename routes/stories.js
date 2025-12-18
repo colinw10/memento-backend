@@ -7,19 +7,35 @@
 const express = require("express");
 const router = express.Router();
 const Story = require("../models/Story");
+const Comment = require("../models/Comment");
 const { protect } = require("../middleware/auth");
 
 /**
- * @route   GET 
+ * @route   GET
  * @desc    Get all stories
  * @access  Private
  */
 router.get("/", protect, async (req, res) => {
-  const stories = await Story.find()
-    .populate("author", "username")
-    .sort({ createdAt: -1 });
+  try {
+    const stories = await Story.find()
+      .populate("author", "username")
+      .sort({ createdAt: -1 });
 
-  res.json(stories);
+    // Add comment count to each story
+    const storiesWithCounts = await Promise.all(
+      stories.map(async (story) => {
+        const commentCount = await Comment.countDocuments({ story: story._id });
+        return {
+          ...story.toObject(),
+          commentCount,
+        };
+      })
+    );
+
+    res.json(storiesWithCounts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 /**
